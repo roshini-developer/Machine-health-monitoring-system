@@ -1,0 +1,445 @@
+[
+    {
+        "id": "0fc4d4494b8760e4",
+        "type": "tab",
+        "label": "MHMS Real Sensor ",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "38c0f4ef95a467f7",
+        "type": "mqtt in",
+        "z": "0fc4d4494b8760e4",
+        "name": "mqtt in ",
+        "topic": "mhms/roshini/real/temperature",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "935a8eae4da66e51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 240,
+        "wires": [
+            [
+                "caa21d56d6c385ec",
+                "0573f020fe3e99f7",
+                "a47d7497170c36f7",
+                "19862c01d5286881",
+                "d681a9df5985ab90"
+            ]
+        ]
+    },
+    {
+        "id": "caa21d56d6c385ec",
+        "type": "debug",
+        "z": "0fc4d4494b8760e4",
+        "name": "debug in",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "19862c01d5286881",
+        "type": "ui-gauge",
+        "z": "0fc4d4494b8760e4",
+        "name": "Live Monitorinng ",
+        "group": "0fffdcd8685461c0",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Machine Temperature ",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "℃",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "4",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "7",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 680,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0573f020fe3e99f7",
+        "type": "ui-chart",
+        "z": "0fc4d4494b8760e4",
+        "group": "0fffdcd8685461c0",
+        "name": "",
+        "label": "chart",
+        "order": 9007199254740991,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Time ",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 710,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a47d7497170c36f7",
+        "type": "function",
+        "z": "0fc4d4494b8760e4",
+        "name": "MHMS Status Processor ",
+        "func": "const temperature = Number(msg.payload);\n\nif (temperature >= 60) {\n    msg.payload = \"High Temperature\";\n} else {\n    msg.payload = \"Normal\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [
+                "d1dc8091059716d9"
+            ]
+        ]
+    },
+    {
+        "id": "d1dc8091059716d9",
+        "type": "ui-text",
+        "z": "0fc4d4494b8760e4",
+        "group": "0fffdcd8685461c0",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Machine status ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 980,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d681a9df5985ab90",
+        "type": "trigger",
+        "z": "0fc4d4494b8760e4",
+        "name": "MHMS Stale detector ",
+        "op1": "",
+        "op2": "STALE ",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "10",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 660,
+        "y": 120,
+        "wires": [
+            [
+                "caa21d56d6c385ec",
+                "d1dc8091059716d9"
+            ]
+        ]
+    },
+    {
+        "id": "a7572847749fdacf",
+        "type": "status",
+        "z": "0fc4d4494b8760e4",
+        "name": "",
+        "scope": [
+            "38c0f4ef95a467f7"
+        ],
+        "x": 320,
+        "y": 640,
+        "wires": [
+            [
+                "369ff19898b911a9"
+            ]
+        ]
+    },
+    {
+        "id": "8d364f581cdd44d4",
+        "type": "debug",
+        "z": "0fc4d4494b8760e4",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "369ff19898b911a9",
+        "type": "function",
+        "z": "0fc4d4494b8760e4",
+        "name": "MHMS connection status ",
+        "func": "const s = (msg.status?.text || \"\").toLowerCase();\n\nif (s.includes(\"connecting\")) {\n    msg.payload = \"MQTT Connecting...\";\n} else if (s.includes(\"disconnected\")) {\n    msg.payload = \"MQTT Disconnected\";\n} else if (s.includes(\"connected\")) {\n    msg.payload = \"MQTT Connected\";\n} else {\n    msg.payload = \"MQTT Status Unknown\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 640,
+        "wires": [
+            [
+                "cf7b4c45eeab944d"
+            ]
+        ]
+    },
+    {
+        "id": "cf7b4c45eeab944d",
+        "type": "ui-text",
+        "z": "0fc4d4494b8760e4",
+        "group": "0fffdcd8685461c0",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Mqtt connection status ",
+        "label": "Mqtt connection status ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 820,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "935a8eae4da66e51",
+        "type": "mqtt-broker",
+        "name": "MHMS Real Broker",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0fffdcd8685461c0",
+        "type": "ui-group",
+        "name": "MHMS Real",
+        "page": "8ae60cd9e2ca5ea7",
+        "width": 6,
+        "height": 1,
+        "order": -1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "8ae60cd9e2ca5ea7",
+        "type": "ui-page",
+        "name": "Dashboard 2.0",
+        "ui": "e3c0de39e0d88d7d",
+        "path": "mhms-real",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "1b79a3073c882fbc",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "tabs": [],
+        "order": -1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "e3c0de39e0d88d7d",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "1b79a3073c882fbc",
+        "type": "ui-theme",
+        "name": "Real MHMS",
+        "colors": {
+            "surface": "#18191b",
+            "primary": "#0d47ce",
+            "bgPage": "#111113",
+            "groupBg": "#212225",
+            "groupOutline": "#a44141"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "3b3a5322132d6976",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.33.0"
+        }
+    }
+]
