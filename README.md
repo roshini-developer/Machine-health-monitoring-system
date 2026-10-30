@@ -30,6 +30,16 @@ MHMS is an IoT-based project that monitors machine temperature using an ESP32 an
 - MQTT connection-status monitoring
 - Local database storage using SQLite
 
+  
+## Project Screenshots
+
+### Node-RED Flow
+![MHMS Node-RED Flow](images/mhms-node-red-flow.png)
+
+### Live Monitoring Dashboard
+![MHMS Dashboard](images/mhms-dashboard.png)
+
+
 ## Project Status
 Version 1 — Core temperature monitoring and data storage workflow implemented and tested.
 
